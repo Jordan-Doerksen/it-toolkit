@@ -30,6 +30,7 @@ so you can decide in five seconds whether to grab it.
 | 12 | [Monitoring](categories/12-monitoring.md) | Know when something's down before they call |
 | 13 | [Virtualization & Labs](categories/13-virtualization.md) | Spin up test machines |
 | 14 | [Editors & Terminals](categories/14-editors-terminal.md) | Where you actually do the work |
+| 15 | [Mapping & Discovery](categories/15-mapping-discovery.md) | Map an unfamiliar **network**, or fully audit the **machine** you're fixing |
 
 ## The "install these first" starter kit
 
@@ -41,6 +42,7 @@ If you set up a fresh tech workstation tomorrow, these earn their spot on almost
 - **[PowerToys](categories/10-everyday-utilities.md)** — Windows power-user pack
 - **[Sysinternals Suite](categories/04-sysinternals.md)** — Process Explorer, Autoruns, ProcMon
 - **[Advanced IP Scanner](categories/02-networking-diagnostics.md)** — see what's on the LAN
+- **[Belarc Advisor](categories/15-mapping-discovery.md)** — one-click full audit of a PC you're handed
 - **[PuTTY](categories/02-networking-diagnostics.md)** + **[WinSCP](categories/09-file-transfer-sync.md)** — SSH + file transfer
 - **[Rufus](categories/05-disk-imaging-backup.md)** / **[Ventoy](categories/05-disk-imaging-backup.md)** — bootable USBs
 - **[KeePassXC](categories/08-passwords-secrets.md)** or **[Bitwarden](categories/08-passwords-secrets.md)** — passwords

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT Toolkit — free & open-source tools</title>
+<meta name="description" content="A curated, searchable list of free and open-source tools IT people use — basic to medium level.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e7; --paper-2:#efe8da; --card:#fbf8f1;
+    --ink:#241f18; --ink-soft:#5c5344; --line:#e0d7c4;
+    --accent:#b8860b; --accent-ink:#8a6508;
+    --shadow:0 1px 2px rgba(60,48,20,.06), 0 6px 18px rgba(60,48,20,.08);
+    --shadow-lg:0 2px 4px rgba(60,48,20,.08), 0 14px 34px rgba(60,48,20,.13);
+    --disp:"Space Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
+    --body:"Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-ink); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .wrap{max-width:1120px; margin:0 auto; padding:0 20px}
+
+  header.hero{
+    padding:56px 0 26px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,var(--paper) 0%, var(--paper-2) 100%);
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-ink); margin:0 0 12px;
+  }
+  h1{
+    font-family:var(--disp); font-weight:700; font-size:clamp(30px,5vw,50px);
+    line-height:1.03; margin:0 0 12px; letter-spacing:-.01em;
+  }
+  h1 .fleck{color:var(--accent)}
+  .lede{max-width:60ch; font-size:17px; color:var(--ink-soft); margin:0}
+  .meta-line{
+    font-family:var(--mono); font-size:12.5px; color:var(--ink-soft);
+    margin-top:16px; display:flex; gap:16px; flex-wrap:wrap;
+  }
+
+  /* sticky controls */
+  .controls{
+    position:sticky; top:0; z-index:20; background:rgba(246,241,231,.92);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  .controls .row{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .search{
+    flex:1 1 280px; display:flex; align-items:center; gap:10px;
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:10px 14px; box-shadow:var(--shadow); min-width:0;
+  }
+  .search:focus-within{border-color:var(--accent); box-shadow:0 0 0 3px rgba(184,134,11,.15)}
+  .search svg{flex:none; opacity:.5}
+  .search input{
+    border:0; outline:0; background:transparent; font-family:var(--body); font-size:15px;
+    color:var(--ink); width:100%;
+  }
+  .segs{display:flex; gap:6px; flex-wrap:wrap}
+  .seg{
+    font-family:var(--mono); font-size:12px; letter-spacing:.02em;
+    padding:8px 12px; border-radius:8px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink-soft); cursor:pointer; user-select:none;
+  }
+  .seg[aria-pressed="true"]{
+    background:var(--accent-ink); color:#fff8ea; border-color:var(--accent-ink);
+  }
+  .seg:hover{border-color:var(--accent)}
+
+  /* category jump chips */
+  .cats{padding:20px 0 4px}
+  .cats .chips{display:flex; gap:8px; flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono); font-size:12px; padding:6px 11px; border-radius:999px;
+    border:1px solid var(--line); background:var(--card); color:var(--ink-soft); cursor:pointer;
+    text-decoration:none;
+  }
+  .chip:hover{border-color:var(--accent); color:var(--accent-ink); text-decoration:none}
+  .chip .n{color:var(--accent); font-weight:600}
+
+  main{padding:8px 0 60px}
+  .empty{
+    display:none; text-align:center; padding:60px 20px; color:var(--ink-soft);
+    font-family:var(--mono); font-size:14px;
+  }
+
+  section.cat{padding:30px 0 6px; scroll-margin-top:96px}
+  .cat-head{display:flex; align-items:baseline; gap:12px; margin-bottom:16px; flex-wrap:wrap}
+  .cat-num{font-family:var(--mono); font-size:13px; color:var(--accent); font-weight:600}
+  .cat-title{font-family:var(--disp); font-weight:600; font-size:22px; margin:0}
+  .cat-blurb{color:var(--ink-soft); font-size:14px}
+
+  .grid{
+    display:grid; gap:14px;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .tool{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:16px 16px 14px; box-shadow:var(--shadow);
+    transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    display:flex; flex-direction:column; min-height:118px;
+  }
+  .tool:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:var(--accent)}
+  .tool h3{font-family:var(--disp); font-weight:600; font-size:16.5px; margin:0 0 6px; line-height:1.2}
+  .tool h3 a::after{content:"↗"; font-size:11px; margin-left:5px; opacity:.5}
+  .tool p{margin:0 0 12px; font-size:14px; color:var(--ink-soft); flex:1}
+  .tool .foot{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  .badge{
+    font-family:var(--mono); font-size:11px; padding:3px 8px; border-radius:6px;
+    border:1px solid var(--line); color:var(--ink-soft); background:var(--paper-2);
+    white-space:nowrap;
+  }
+  .badge.lic-oss{border-color:#b7d3b0; background:#eaf3e6; color:#3f6b34}
+  .badge.lic-free{border-color:#cdd8ea; background:#eaf0f8; color:#3d5680}
+  .badge.plat{background:transparent}
+  .badge.medium{border-color:var(--accent); color:var(--accent-ink); background:#fbf1d8}
+  .caveat{
+    margin-top:9px; font-size:12px; color:#8a5a2b; display:flex; gap:6px; align-items:flex-start;
+  }
+  .caveat b{font-weight:600}
+
+  footer{border-top:1px solid var(--line); padding:26px 0 46px; color:var(--ink-soft); font-size:13px}
+  footer .colophon{font-family:var(--mono); font-size:12px; letter-spacing:.04em}
+  .fleck{color:var(--accent)}
+
+  @media (max-width:560px){
+    header.hero{padding:40px 0 22px}
+    .grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .tool{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Field reference</p>
+    <h1>IT Toolkit <span class="fleck">✦</span></h1>
+    <p class="lede">The free &amp; open-source tools IT people actually reach for — from basic help-desk work up to solid mid-level admin. If it's here, it's free (or genuinely free-tier), widely trusted, and you can be productive with it the same afternoon.</p>
+    <div class="meta-line">
+      <span id="stat-count">— tools</span>
+      <span id="stat-cats">— categories</span>
+      <span>OSS &amp; free · basic → medium</span>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="row">
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Search tools — try 'dns', 'backup', 'remote'…" autocomplete="off" aria-label="Search tools">
+      </label>
+      <div class="segs" role="group" aria-label="Filters">
+        <button class="seg" data-lic="all" aria-pressed="true">All</button>
+        <button class="seg" data-lic="oss" aria-pressed="false">Open source</button>
+        <button class="seg" data-lic="free" aria-pressed="false">Free</button>
+        <button class="seg" data-basic="on" aria-pressed="false">Hide ●● medium</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cats wrap">
+  <div class="chips" id="chips"></div>
+</div>
+
+<main class="wrap">
+  <div id="list"></div>
+  <div class="empty" id="empty">No tools match that. Try a broader search or reset the filters.</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Always download from the official site linked here, not a random mirror. Some tools (AnyDesk, TeamViewer) are free for personal use only — check the license before commercial use.</p>
+    <p class="colophon">IT Toolkit ✦ a living list ✦ MMXXVI</p>
+  </div>
+</footer>
+
+<script src="data/tools.js"></script>
+<script>
+(function(){
+  var DATA = (window.IT_TOOLKIT || {tools:[], categories:[]});
+  var catMap = {};
+  DATA.categories.forEach(function(c){ catMap[c.id] = c; });
+
+  var state = { q:"", lic:"all", basicOnly:false };
+
+  var listEl = document.getElementById("list");
+  var emptyEl = document.getElementById("empty");
+  var chipsEl = document.getElementById("chips");
+  var searchEl = document.getElementById("search");
+
+  document.getElementById("stat-count").textContent = DATA.tools.length + " tools";
+  document.getElementById("stat-cats").textContent = DATA.categories.length + " categories";
+
+  // category jump chips
+  DATA.categories.forEach(function(c){
+    var a = document.createElement("a");
+    a.className = "chip";
+    a.href = "#cat-" + c.id;
+    a.innerHTML = '<span class="n">' + c.id + '</span> ' + esc(c.title);
+    chipsEl.appendChild(a);
+  });
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(m){
+    return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[m]; }); }
+
+  function licClass(lic){
+    if(/oss/i.test(lic)) return "lic-oss";
+    return "lic-free";
+  }
+  function matchesLic(t){
+    if(state.lic === "all") return true;
+    if(state.lic === "oss") return /oss/i.test(t.license);
+    if(state.lic === "free") return /free/i.test(t.license);
+    return true;
+  }
+  function matchesQ(t){
+    if(!state.q) return true;
+    var hay = (t.name + " " + t.desc + " " + t.platform + " " + (catMap[t.cat]?catMap[t.cat].title:"")).toLowerCase();
+    return state.q.split(/\s+/).every(function(term){ return hay.indexOf(term) !== -1; });
+  }
+  function visible(t){
+    if(state.basicOnly && t.medium) return false;
+    return matchesLic(t) && matchesQ(t);
+  }
+
+  function render(){
+    listEl.innerHTML = "";
+    var total = 0;
+    DATA.categories.forEach(function(c){
+      var tools = DATA.tools.filter(function(t){ return t.cat === c.id && visible(t); });
+      if(!tools.length) return;
+      total += tools.length;
+
+      var sec = document.createElement("section");
+      sec.className = "cat";
+      sec.id = "cat-" + c.id;
+
+      var head = document.createElement("div");
+      head.className = "cat-head";
+      head.innerHTML =
+        '<span class="cat-num">' + c.id + '</span>' +
+        '<h2 class="cat-title">' + esc(c.title) + '</h2>' +
+        '<span class="cat-blurb">' + esc(c.blurb) + '</span>';
+      sec.appendChild(head);
+
+      var grid = document.createElement("div");
+      grid.className = "grid";
+      tools.forEach(function(t){
+        var card = document.createElement("article");
+        card.className = "tool";
+        var html =
+          '<h3><a href="' + esc(t.url) + '" target="_blank" rel="noopener">' + esc(t.name) + '</a></h3>' +
+          '<p>' + esc(t.desc) + '</p>' +
+          '<div class="foot">' +
+            '<span class="badge ' + licClass(t.license) + '">' + esc(t.license) + '</span>' +
+            '<span class="badge plat">' + esc(t.platform) + '</span>' +
+            (t.medium ? '<span class="badge medium">●● medium</span>' : '') +
+          '</div>';
+        if(t.caveat){
+          html += '<div class="caveat"><b>!</b><span>' + esc(t.caveat) + '</span></div>';
+        }
+        card.innerHTML = html;
+        grid.appendChild(card);
+      });
+      sec.appendChild(grid);
+      listEl.appendChild(sec);
+    });
+    emptyEl.style.display = total ? "none" : "block";
+  }
+
+  // wire controls
+  searchEl.addEventListener("input", function(){ state.q = this.value.trim().toLowerCase(); render(); });
+
+  document.querySelectorAll(".seg[data-lic]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      state.lic = this.getAttribute("data-lic");
+      document.querySelectorAll(".seg[data-lic]").forEach(function(b){
+        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+      });
+      render();
+    });
+  });
+
+  var basicBtn = document.querySelector(".seg[data-basic]");
+  basicBtn.addEventListener("click", function(){
+    state.basicOnly = !state.basicOnly;
+    this.setAttribute("aria-pressed", state.basicOnly ? "true" : "false");
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
